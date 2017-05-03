@@ -106,16 +106,16 @@ namespace L2 {
               break;
     }
 
-    std::cout << "\nGEN: ";
-    for (auto reg : *GEN)
-    {
-        std::cout << reg << " ";
-    }
-    std::cout << " ///// KILL: ";
-    for (auto reg : *KILL)
-    {
-        std::cout << reg << " ";
-    }
+    // std::cout << "\nGEN: ";
+    // for (auto reg : *GEN)
+    // {
+    //     std::cout << reg << " ";
+    // }
+    // std::cout << " ///// KILL: ";
+    // for (auto reg : *KILL)
+    // {
+    //     std::cout << reg << " ";
+    // }
   }
 
   void liveness_analysis(L2::Function *func, std::set <std::string> *GEN, std::set <std::string> *KILL, std::set <std::string> *IN, std::set <std::string> *OUT) {
@@ -180,22 +180,22 @@ namespace L2 {
     ///////////////////////
     // print in & out
     ///////////////////////
-    std::cout << "(\n(in\n";
-    for (int k = 0; k < n; k++) {
-      std::cout << "(";
-      for (auto reg : IN[k]) {
-          std::cout << reg << " ";
-      }
-      std::cout << ")\n";
-    }
-    std::cout << ")\n\n(out\n";
-    for (int k = 0; k < n; k++) {
-      std::cout << "(";
-      for (auto reg : OUT[k]) {
-          std::cout << reg << " ";
-      }
-      std::cout << ")\n";
-    }
-    std::cout << ")\n\n)";
+    // std::cout << "(\n(in\n";
+    // for (int k = 0; k < n; k++) {
+    //   std::cout << "(";
+    //   for (auto reg : IN[k]) {
+    //       std::cout << reg << " ";
+    //   }
+    //   std::cout << ")\n";
+    // }
+    // std::cout << ")\n\n(out\n";
+    // for (int k = 0; k < n; k++) {
+    //   std::cout << "(";
+    //   for (auto reg : OUT[k]) {
+    //       std::cout << reg << " ";
+    //   }
+    //   std::cout << ")\n";
+    // }
+    // std::cout << ")\n\n)";
   }
 }

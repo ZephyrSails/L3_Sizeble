@@ -12,12 +12,12 @@ namespace L2 {
   }
 
   void check_spill_match(L2::Instruction * rw, L2::Item * i, std::string * spill_target, int * count, int locals) {
-    std::cout << "rw->items.size(): " << rw->items.size() << "\n";
+    // std::cout << "rw->items.size(): " << rw->items.size() << "\n";
     if (rw->items.size() > 0) {
       return;
     }
-    std::cout << "i->name: " << i->name << " *spill_target: " << *spill_target;
-    std::cout << "\n";
+    // std::cout << "i->name: " << i->name << " *spill_target: " << *spill_target;
+    // std::cout << "\n";
     if (i->type == L2::ITEM::VAR && (i->name == *spill_target || i->name == L2::get_spill_str(count, spill_target))) {
 
       std::string spill_str = L2::get_spill_str(count, spill_target);
@@ -67,7 +67,7 @@ namespace L2 {
       write->type = L2::INS::MEM_START;
 
       // std::cout << "tinkering 3 - " << k << " " << *spill_target << "\n";
-      std::cout << "K = " << k << "\n";
+      // std::cout << "K = " << k << "\n";
       switch (i->type) {
         // case L2::INS::RETURN:
         //         GEN->insert(callee_save_regs.begin(), callee_save_regs.end());
@@ -84,12 +84,12 @@ namespace L2 {
                 check_spill_match(read, i->items.at(1), spill_target, &count, f->locals);
                 break;
         case L2::INS::W_START:
-                std::cout << "hello W_START\n";
+                // std::cout << "hello W_START\n";
                 check_spill_match(write, i->items.at(0), spill_target, &count, f->locals);
                 if (i->op != "<-") {
                   // i->items.at(0) = spill_str;
                   // i->name = spill_str;
-                  std::cout << "hello muttherererere kkdferere!\n";
+                  // std::cout << "hello muttherererere kkdferere!\n";
                   check_spill_match(read, i->items.at(0), spill_target, &count, f->locals);
                 }
                 check_spill_match(read, i->items.at(1), spill_target, &count, f->locals);
