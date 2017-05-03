@@ -76,11 +76,13 @@ namespace L2 {
         // case L2::INS::LABEL_INS:
         //         break;
         case L2::INS::MEM_START:
-                check_spill_match(write, i->items.at(0), spill_target, &count, f->locals);
-                if (i->op != "<-") {
+                // check_spill_match(write, i->items.at(0), spill_target, &count, f->locals);
+                // if (i->op != "<-") {
+                  // BUG
+                  // std::cout << "hello mem start\n";
                   // i->items.at(0) = spill_str;
                   check_spill_match(read, i->items.at(0), spill_target, &count, f->locals);
-                }
+                // }
                 check_spill_match(read, i->items.at(1), spill_target, &count, f->locals);
                 break;
         case L2::INS::W_START:

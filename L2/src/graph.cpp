@@ -119,6 +119,7 @@ namespace L2 {
 
       // Connect variables in KILL[i] with those in OUT[i], Unless it is (x <- y)
       // if (func->instructions[k]->op != "<-") {
+      // BUG
         this->add_edges(KILL[k], OUT[k]);
       // }
       // Handle constrained arithmetic via extra edges
