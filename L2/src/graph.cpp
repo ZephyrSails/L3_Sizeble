@@ -118,9 +118,9 @@ namespace L2 {
       this->add_edges(OUT[k]);
 
       // Connect variables in KILL[i] with those in OUT[i], Unless it is (x <- y)
-      if (func->instructions[k]->op != "<-") {
+      // if (func->instructions[k]->op != "<-") {
         this->add_edges(KILL[k], OUT[k]);
-      }
+      // }
       // Handle constrained arithmetic via extra edges
       if (func->instructions[k]->op == "<<=" || func->instructions[k]->op == ">>=") {
         for (auto const & reg : L2::REGS) {
@@ -231,8 +231,8 @@ namespace L2 {
     this->build_stack();
     this->rebuild();
 
-    // this->print();
-    // this->print_color();
+    this->print();
+    this->print_color();
 
     std::vector< std::string > spilling_table;
 
