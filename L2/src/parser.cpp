@@ -60,6 +60,7 @@ namespace L2 {
     pegtl::string< 'a', 'l', 'l', 'o', 'c', 'a', 't', 'e' >,
     pegtl::string< 'a', 'r', 'r', 'a', 'y', '-', 'e', 'r', 'r', 'o', 'r' >
   > {};
+  // array-error
 
   struct mem:
     pegtl::string < 'm', 'e', 'm' > {};
@@ -316,7 +317,7 @@ namespace L2 {
     pegtl::seq<
       call,
       seps,
-      pegtl::sor< u, runtime_system_func >,
+      pegtl::sor< runtime_system_func, u >,
       seps,
       N
     > {};

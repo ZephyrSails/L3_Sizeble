@@ -47,7 +47,7 @@
 
     ; Initialization of variables
     (array <- rdi)
-    (index <- 0)         
+    (index <- 0)
     (arrayLength <- (mem array 0))
 
     ; Check if the array is an actual array
