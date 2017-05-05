@@ -118,10 +118,14 @@ namespace L2 {
       this->add_edges(OUT[k]);
 
       // Connect variables in KILL[i] with those in OUT[i], Unless it is (x <- y)
-      // if (func->instructions[k]->op != "<-") {
+      if (func->instructions[k]->type == L2::INS::W_START &&
+        func->instructions[k]->items[1]->type == L2::ITEM::VAR &&
+        func->instructions[k]->op != "<-") {
       // BUG
+
+      } else {
         this->add_edges(KILL[k], OUT[k]);
-      // }
+      }
       // Handle constrained arithmetic via extra edges
       if (func->instructions[k]->op == "<<=" || func->instructions[k]->op == ">>=") {
         for (auto const & reg : L2::REGS) {
