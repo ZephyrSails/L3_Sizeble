@@ -13,3 +13,5 @@ L2/prog.L1
 L2/a.out
 
 L3/bin/*.o
+L3/obj/*.o
+L3/prog.L2
