@@ -1,3 +1,5 @@
+// By Zhiping
+
 #include <L3.h>
 
 namespace L3 {
@@ -5,6 +7,10 @@ namespace L3 {
   //   std::cout << "instance \n";
   //   return "";
   // }
+
+  bool Instance::equal(L3::Instance * ins) {
+    return typeid(this) == typeid(ins) && this->type == ins->type;
+  }
 
   Var::Var(std::string name) {
     if (name[0] == ':') {
@@ -63,8 +69,8 @@ namespace L3 {
   }
 
   Call::Call(std::vector<std::string> & v) {
-    this->name = v[1];
-    for (int k = 2; k < v.size(); k++) {
+    this->name = v[0];
+    for (int k = 1; k < v.size(); k++) {
       this->instances.push_back(new L3::Var(v[k]));
     }
   }

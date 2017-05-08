@@ -146,8 +146,6 @@ namespace L3 {
       >
     > {};
 
-
-
   struct args:
     pegtl::seq<
       t,
@@ -305,7 +303,8 @@ namespace L3 {
       L3::Function *currentF = p.functions.back();
       L3::Instance *newIns = new L3::Var(v[0]);
       if (v[1] == "call") {
-        newIns->instances.push_back(new L3::Call(v));
+        std::vector<std::string> cv (v.begin()+1, v.end());
+        newIns->instances.push_back(new L3::Call(cv));
       } else if (v[1] == "load") {
         newIns->instances.push_back(new L3::Load(v));
       } else if (v.size() == 4) { // cmp || op
@@ -368,6 +367,8 @@ namespace L3 {
   template<> struct action < ins_call > {
     static void apply( const pegtl::input & in, L3::Program & p, std::vector<std::string> & v ) {
       L3::Function *currentF = p.functions.back();
+
+      currentF->instructions.push_back(new L3::Call(v));
 
       v.clear();
     }
@@ -442,7 +443,6 @@ namespace L3 {
   /*
    * Data structures required to parse
    */
-
   Program L3_parse_file (char *fileName) {
     /*
      * Check the grammar for some possible issues.

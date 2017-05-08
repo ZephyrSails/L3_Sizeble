@@ -36,6 +36,8 @@ namespace L3 {
     std::vector<L3::Instance *> instances;
 
     virtual std::string toString() = 0;
+
+    bool equal(L3::Instance * ins);
   };
 
   enum INS { VAR, N, LABEL };
@@ -46,14 +48,6 @@ namespace L3 {
     Var(std::string name);
     std::string toString();
   };
-
-  // class Number: public Instance {
-  //   std::string toString();
-  // };
-  //
-  // class Label: public Instance {
-  //   std::string toString();
-  // };
 
   class Op: public Instance {
   public:
