@@ -50,6 +50,7 @@ namespace L3 {
     virtual std::string toString() = 0;
 
     bool equal(L3::Instance * ins);
+    void printTree(int d);
   };
 
 
@@ -107,4 +108,6 @@ namespace L3 {
   struct Program {
     std::vector< L3::Function * > functions;
   };
+
+  void printFunc(L3::Function & func);
 }

@@ -123,19 +123,19 @@ namespace L3 {
 
     int n = func->instructions.size();
 
-    for (int k = 0; k < n; k++) {
-      std::cout << "GEN: ";
-      for (auto reg : func->instructions[k]->GEN)
-      {
-          std::cout << reg << " ";
-      }
-      std::cout << " ///// KILL: ";
-      for (auto reg : func->instructions[k]->KILL)
-      {
-          std::cout << reg << " ";
-      }
-      std::cout << "\n";
-    }
+    // for (int k = 0; k < n; k++) {
+    //   std::cout << "GEN: ";
+    //   for (auto reg : func->instructions[k]->GEN)
+    //   {
+    //       std::cout << reg << " ";
+    //   }
+    //   std::cout << " ///// KILL: ";
+    //   for (auto reg : func->instructions[k]->KILL)
+    //   {
+    //       std::cout << reg << " ";
+    //   }
+    //   std::cout << "\n";
+    // }
 
     int converge_count;
     while (converge_count != n) {

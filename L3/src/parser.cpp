@@ -133,7 +133,7 @@ namespace L3 {
 
   // struct
 
-  struct vars:
+  struct L3_vars:
     pegtl::rep_max< 1,
       pegtl::seq<
         var,
@@ -149,7 +149,7 @@ namespace L3 {
       >
     > {};
 
-  struct args:
+  struct argv:
     pegtl::seq<
       t,
       seps,
@@ -163,6 +163,12 @@ namespace L3 {
       >
     > {};
 
+  struct vars:
+    L3_vars {};
+
+  struct args:
+    L3_vars {};
+
   struct call:
     pegtl::string< 'c', 'a', 'l', 'l' > {};
 
@@ -170,7 +176,7 @@ namespace L3 {
     pegtl::seq<
       call,
       seps, callee, seps,
-      pegtl::one< '(' >, seps, args, seps, pegtl::one< ')' >
+      pegtl::one< '(' >, seps, argv, seps, pegtl::one< ')' >
     > {};
 
   struct load:
@@ -251,7 +257,7 @@ namespace L3 {
     pegtl::seq<
       pegtl::string< 'd', 'e', 'f', 'i', 'n', 'e' >,
       seps, function_name, seps,
-      pegtl::one< '(' >, seps, vars, seps, pegtl::one< ')' >,
+      pegtl::one< '(' >, seps, args, seps, pegtl::one< ')' >,
       seps,
       pegtl::one< '{' >,
       seps,
@@ -312,11 +318,21 @@ namespace L3 {
       L3::Function *newF = new L3::Function();
       std::string token = in.string();
       newF->name = token;
-      for (int k = 0; k < v.size(); k++) {
-        newF->arguments.push_back(new L3::Var(v[k]));
-      }
 
       p.functions.push_back(newF);
+      v.clear();
+    }
+  };
+
+  template<> struct action < args > {
+    static void apply( const pegtl::input & in, L3::Program & p, std::vector<std::string> & v ) {
+      L3::Function *currentF = p.functions.back();
+
+      for (int k = 0; k < v.size(); k++) {
+        std::cout << "foud arg: " << v[k] << "\n";
+        currentF->arguments.push_back(new L3::Var(v[k]));
+      }
+
       v.clear();
     }
   };

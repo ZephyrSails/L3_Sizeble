@@ -23,6 +23,22 @@ namespace L3 {
     // return (typeid(this) == typeid(ins)) && (this->type == ins->type);
   }
 
+  void Instance::printTree(int d = 0) {
+    for (int k = 0; k < d; k++) {
+      std::cout << "  ";
+    }
+    std::cout << typeid(*this).name() << ": " << this->name << "\n";
+    for (auto sub : this->instances) {
+      sub->printTree(d + 1);
+    }
+  }
+
+  void printFunc(L3::Function & func) {
+    for (auto ins : func.instructions) {
+      ins->printTree();
+    }
+  }
+
   Var::Var(std::string name) {
     if (name[0] == ':') {
       this->type = L3::INS::LABEL;
@@ -112,6 +128,8 @@ namespace L3 {
 
   std::string Call::toString() {
     std::string res = "\n\t\t";
+
+    bool isLibFunc = (this->name == "print" || this->name == "array-error" || this->name == "allocate");
     for (int k = 0; k < this->instances.size(); k++) {
       if (k < 6) {
         res += "\n\t\t(" + L3::ARGS[k] + " <- " + this->instances[k]->name + ")";
@@ -123,9 +141,13 @@ namespace L3 {
     if (fName[0] == ':') {
       fName.erase(0, 1);
     }
-    res += "\n\t\t((mem rsp -8) <- :ret_" + fName + ")";
+    if (!isLibFunc) {
+      res += "\n\t\t((mem rsp -8) <- :ret_" + fName + ")";
+    }
     res += "\n\t\t(call " + this->name + " " + std::to_string(this->instances.size()) + ")";
-    res += "\n\t\t:ret_" + fName;
+    if (!isLibFunc) {
+      res += "\n\t\t:ret_" + fName;
+    }
     return res;
   }
 
