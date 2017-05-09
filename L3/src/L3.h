@@ -20,6 +20,7 @@
 #include <fstream>
 #include <tuple>
 #include <unistd.h>
+#include <typeinfo>
 
 namespace L3 {
   // const std::vector< std::string > sys
@@ -29,10 +30,12 @@ namespace L3 {
   //   int64_t value;
   // };
 
+  enum INS { VAR, N, LABEL, ELSE };
+
   class Instance {
   public:
     std::string name;
-    int64_t type;
+    int64_t type = L3::INS::ELSE;
     std::vector<L3::Instance *> instances;
 
     virtual std::string toString() = 0;
@@ -40,7 +43,6 @@ namespace L3 {
     bool equal(L3::Instance * ins);
   };
 
-  enum INS { VAR, N, LABEL };
 
   class Var: public Instance {
   public:

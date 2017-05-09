@@ -137,10 +137,13 @@ namespace L3 {
     pegtl::rep_max< 1,
       pegtl::seq<
         var,
+        seps,
         pegtl::star<
           pegtl::seq<
             pegtl::one< ',' >,
-            var
+            seps,
+            var,
+            seps
           >
         >
       >
@@ -149,10 +152,13 @@ namespace L3 {
   struct args:
     pegtl::seq<
       t,
+      seps,
       pegtl::star<
         pegtl::seq<
           pegtl::one< ',' >,
-          t
+          seps,
+          t,
+          seps
         >
       >
     > {};

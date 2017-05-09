@@ -9,7 +9,12 @@ namespace L3 {
   // }
 
   bool Instance::equal(L3::Instance * ins) {
-    return typeid(this) == typeid(ins) && this->type == ins->type;
+    // std::cout << "typeid: " << (typeid(this).name()) << " " << typeid(ins).name() << "\n";
+    // std::cout << "equal: " << (typeid(this) == typeid(ins)) << "\n";
+    // std::cout << "type: " << this->type << " " << ins->type << "\n";
+    // std::cout << "equal: " << (this->type == ins->type) << "\n";
+    // std::cout << "equal: " << ((typeid(this) == typeid(ins)) && (this->type == ins->type)) << "\n";
+    return (typeid(this) == typeid(ins)) && (this->type == ins->type);
   }
 
   Var::Var(std::string name) {
@@ -94,7 +99,7 @@ namespace L3 {
   }
 
   std::string Return::toString() {
-    std::cout << "returning \n";
+
     std::string res = "\n\t\t";
     if (this->name != "") {
       res += "(rax <- " + this->name + ")\n\t\t";
