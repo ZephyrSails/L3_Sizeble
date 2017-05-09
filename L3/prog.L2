@@ -1,7 +1,54 @@
 (:main
 	(:main
 		0 0
+		(v1 <- 1)
+		(v2 <- 2)
+		
+		(rdi <- v1)
+		(rsi <- v2)
+		(rdx <- 3)
+		((mem rsp -8) <- :ret_myF)
+		(call :myF 3)
+		:ret_myF
+		(v4 <- rdx)
+		(v4Encoded <- v4)
+		(v4Encoded <<= 1)
+		(v4Encoded <- v4Encoded)
+		(v4Encoded += 1)
+		
+		(rdi <- v4Encoded)
+		((mem rsp -8) <- :ret_print)
+		(call print 1)
+		:ret_print
+		
+		(rdi <- v4Encoded)
+		(rsi <- 1)
+		((mem rsp -8) <- :ret_allocate)
+		(call allocate 2)
+		:ret_allocate
+		(myAr <- rdx)
+		(el1Address <- myAr)
+		(el1Address += 8)
+		(el1 <- (mem el1Address 0))
+		
+		(rdi <- el1)
+		((mem rsp -8) <- :ret_print)
+		(call print 1)
+		:ret_print
+		
+		(rdi <- myAr)
+		((mem rsp -8) <- :ret_print)
+		(call print 1)
+		:ret_print
 		(rax <- 0)
+		(return)
+	)
+	(:myF
+		0 0
+		(p1 <- p2)
+		(tempV <- tempV)
+		(tempV += p3)
+		(rax <- tempV)
 		(return)
 	)
 )

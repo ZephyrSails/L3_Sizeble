@@ -30,6 +30,8 @@ namespace L3 {
   //   int64_t value;
   // };
 
+  const std::vector< std::string > ARGS = { "rdi", "rsi", "rdx", "rcx", "r8", "r9" };
+
   enum INS { VAR, N, LABEL, ELSE };
 
   class Instance {
@@ -85,7 +87,6 @@ namespace L3 {
   public:
     Return(std::vector<std::string> & v);
     std::string toString();
-    // std::string toString();
   };
 
 

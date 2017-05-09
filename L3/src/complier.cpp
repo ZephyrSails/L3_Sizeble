@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
 
       t->Match(i, stack);
       for (int k = stack.size()-1; k >= 0; k--) {
-        std::cout << std::get<0>(stack.at(k)) << " " << std::get<1>(stack.at(k)) << "\n";
+        // std::cout << std::get<0>(stack.at(k)) << " " << std::get<1>(stack.at(k)) << "\n";
         outputFile << t->Translate(std::get<0>(stack.at(k)), std::get<1>(stack.at(k)));
       }
 

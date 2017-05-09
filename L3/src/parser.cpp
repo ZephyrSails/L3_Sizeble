@@ -309,7 +309,7 @@ namespace L3 {
       L3::Function *currentF = p.functions.back();
       L3::Instance *newIns = new L3::Var(v[0]);
       if (v[1] == "call") {
-        std::vector<std::string> cv (v.begin()+1, v.end());
+        std::vector<std::string> cv(v.begin()+1, v.end());
         newIns->instances.push_back(new L3::Call(cv));
       } else if (v[1] == "load") {
         newIns->instances.push_back(new L3::Load(v));
@@ -364,6 +364,7 @@ namespace L3 {
 
       L3::Instance *newIns = new L3::Return(v);
 
+      // std::cout << "typeid(newIns).name() " << typeid(*newIns).name() << "\n";
       currentF->instructions.push_back(newIns);
 
       v.clear();
