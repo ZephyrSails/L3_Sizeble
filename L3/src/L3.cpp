@@ -7,6 +7,11 @@ namespace L3 {
   //   std::cout << "instance \n";
   //   return "";
   // }
+  void debug(std::string str) {
+    if (true) {
+      std::cout << str << "\n";
+    }
+  }
 
   bool Instance::equal(L3::Instance * ins) {
     // std::cout << "typeid: " << (typeid(this).name()) << " " << typeid(ins).name() << "\n";

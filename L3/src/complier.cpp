@@ -3,6 +3,7 @@
 #include <L3.h>
 #include <parser.h>
 #include <tile.h>
+#include <liveness.h>
 
 int main(int argc, char **argv) {
   bool verbose;
@@ -37,7 +38,10 @@ int main(int argc, char **argv) {
     outputFile << "\t(" << f->name << "\n";
     outputFile << "\t\t" << std::to_string(f->arguments.size()) << " 0";
 
+    L3::liveness(f);
+
     for (auto i : f->instructions) {
+
       // outputFile << i->toString();
       std::vector< std::tuple< int, L3::Instance * > > stack;
       // std::cout << "stack->size(): " << stack.size() << "\n";
@@ -56,5 +60,5 @@ int main(int argc, char **argv) {
   outputFile << ")\n";
   outputFile.close();
 
-  std::cout << "yeahhhhh\n";
+  L3::debug("yeahhhhh");
 }

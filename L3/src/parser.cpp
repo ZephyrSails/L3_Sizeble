@@ -279,6 +279,26 @@ namespace L3 {
    * Helpers
    */
 
+  void insert(std::set<std::string> & s, std::string var) {
+
+    for (auto reg : s)
+    {
+        std::cout << reg << " ";
+    }
+
+    if (var[0] == ':') {
+      return;
+    }
+    try { // number
+      std::stoll(var);
+      return;
+    } catch (const std::exception& e) {
+      s.insert(var);
+    }
+
+
+  }
+
 
   /*
    * Actions attached to grammar rules.
@@ -301,21 +321,29 @@ namespace L3 {
     }
   };
 
-
   // Instructions builder
 
   template<> struct action < ins_v_start > {
     static void apply( const pegtl::input & in, L3::Program & p, std::vector<std::string> & v ) {
       L3::Function *currentF = p.functions.back();
       L3::Instance *newIns = new L3::Var(v[0]);
+      insert(newIns->KILL, v[0]);
+
       if (v[1] == "call") {
         std::vector<std::string> cv(v.begin()+1, v.end());
+        for (int k = 2; k < cv.size(); k++) {
+          insert(newIns->GEN, v[k]);
+        }
         newIns->instances.push_back(new L3::Call(cv));
       } else if (v[1] == "load") {
+        insert(newIns->GEN, v[1]);
         newIns->instances.push_back(new L3::Load(v));
       } else if (v.size() == 4) { // cmp || op
+        insert(newIns->GEN, v[1]);
+        insert(newIns->GEN, v[3]);
         newIns->instances.push_back(new L3::Op(v));
       } else { // var <- s
+        insert(newIns->GEN, v[1]);
         newIns->instances.push_back(new L3::Var(v[1]));
       }
 
@@ -330,6 +358,9 @@ namespace L3 {
 
       L3::Instance *newIns = new L3::Store(v);
 
+      insert(newIns->GEN, v[0]);
+      insert(newIns->GEN, v[1]);
+
       currentF->instructions.push_back(newIns);
       v.clear();
     }
@@ -340,7 +371,9 @@ namespace L3 {
       L3::Function *currentF = p.functions.back();
 
       L3::Instance *newIns = new L3::Br(v);
-
+      if (v.size() == 3) {
+        insert(newIns->GEN, v[0]);
+      }
       currentF->instructions.push_back(newIns);
 
       v.clear();
@@ -363,6 +396,11 @@ namespace L3 {
       L3::Function *currentF = p.functions.back();
 
       L3::Instance *newIns = new L3::Return(v);
+      if (v.size() == 1) {
+        // std::cout << "newIns->GEN " << newIns->GEN->size() << "\n";
+
+        insert(newIns->GEN, v[0]);
+      }
 
       // std::cout << "typeid(newIns).name() " << typeid(*newIns).name() << "\n";
       currentF->instructions.push_back(newIns);

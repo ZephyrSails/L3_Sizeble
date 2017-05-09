@@ -23,6 +23,8 @@
 #include <typeinfo>
 
 namespace L3 {
+
+  void debug(std::string str);
   // const std::vector< std::string > sys
 
   // class Item {
@@ -31,11 +33,16 @@ namespace L3 {
   // };
 
   const std::vector< std::string > ARGS = { "rdi", "rsi", "rdx", "rcx", "r8", "r9" };
+  // const std::vector< std::string > ARGS = { "rdi", "rsi", "rdx", "rcx", "r8", "r9" };
 
   enum INS { VAR, N, LABEL, ELSE };
 
   class Instance {
   public:
+    std::set<std::string> GEN;
+    std::set<std::string> KILL;
+    std::set<std::string> IN;
+    std::set<std::string> OUT;
     std::string name;
     int64_t type = L3::INS::ELSE;
     std::vector<L3::Instance *> instances;
