@@ -14,9 +14,9 @@
 		(call print 1)
 		
 		(rdi <- array1)
-		((mem rsp -8) <- :ret_printArray)
+		((mem rsp -8) <- :ret_printArray_0)
 		(call :printArray 1)
-		:ret_printArray
+		:ret_printArray_0
 		
 		(rdi <- 5)
 		(rsi <- 5)
@@ -28,9 +28,9 @@
 		(call print 1)
 		
 		(rdi <- array1)
-		((mem rsp -8) <- :ret_printArray)
+		((mem rsp -8) <- :ret_printArray_1)
 		(call :printArray 1)
-		:ret_printArray
+		:ret_printArray_1
 		(return)
 	)
 	(:printArray
@@ -57,9 +57,9 @@
 		
 		(rdi <- array)
 		(rsi <- encodedIndex)
-		((mem rsp -8) <- :ret_printData)
+		((mem rsp -8) <- :ret_printData_2)
 		(call :printData 2)
-		:ret_printData
+		:ret_printData_2
 		(index <- index)
 		(index += 1)
 		(goto :check)

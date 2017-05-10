@@ -31,6 +31,7 @@ namespace L3 {
   //   std::string name;
   //   int64_t value;
   // };
+  int CALLCOUNT = 0;
 
   const std::vector< std::string > ARGS = { "rdi", "rsi", "rdx", "rcx", "r8", "r9" };
   // const std::vector< std::string > ARGS = { "rdi", "rsi", "rdx", "rcx", "r8", "r9" };
