@@ -9,7 +9,7 @@ namespace L3 {
   // }
 
   void debug(std::string str) {
-    if (true) {
+    if (false) {
       std::cout << str << "\n";
     }
   }
