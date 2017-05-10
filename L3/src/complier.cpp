@@ -48,10 +48,12 @@ int main(int argc, char **argv) {
         outputFile << "\n\t\t(" << f->arguments[k]->name << " <- (mem rsp " << std::to_string((k-5) * 8) << "))";
       }
     }
-    // L3::liveness(f);
+
+    L3::liveness(f);
     // L3::printFunc(*f);
-    // L3::mergeFunc(f);
+    L3::mergeFunc(f);
     // L3::printFunc(*f);
+
     for (auto i : f->instructions) {
 
       std::vector< std::tuple< int, L3::Instance * > > stack;

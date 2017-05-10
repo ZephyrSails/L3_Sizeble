@@ -225,7 +225,7 @@ namespace L3 {
     > {};
 
   struct ins_label:
-    L3_label {};
+    label {};
 
   struct ins_return:
     pegtl::sor<
@@ -400,7 +400,7 @@ namespace L3 {
     static void apply( const pegtl::input & in, L3::Program & p, std::vector<std::string> & v ) {
       L3::Function *currentF = p.functions.back();
 
-      L3::Instance *newIns = new L3::Var(v[0]);
+      L3::Instance *newIns = new L3::Var(in.string());
 
       currentF->instructions.push_back(newIns);
       v.clear();

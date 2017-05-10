@@ -187,22 +187,22 @@ namespace L3 {
     ///////////////////////
     // print in & out
     ///////////////////////
-    std::cout << "(\n(in\n";
-    for (int k = 0; k < n; k++) {
-      std::cout << "(";
-      for (auto var : func->instructions[k]->IN) {
-          std::cout << var << " ";
-      }
-      std::cout << ")\n";
-    }
-    std::cout << ")\n\n(out\n";
-    for (int k = 0; k < n; k++) {
-      std::cout << "(";
-      for (auto var : func->instructions[k]->OUT) {
-          std::cout << var << " ";
-      }
-      std::cout << ")\n";
-    }
-    std::cout << ")\n\n)\n";
+    // std::cout << "(\n(in\n";
+    // for (int k = 0; k < n; k++) {
+    //   std::cout << "(";
+    //   for (auto var : func->instructions[k]->IN) {
+    //       std::cout << var << " ";
+    //   }
+    //   std::cout << ")\n";
+    // }
+    // std::cout << ")\n\n(out\n";
+    // for (int k = 0; k < n; k++) {
+    //   std::cout << "(";
+    //   for (auto var : func->instructions[k]->OUT) {
+    //       std::cout << var << " ";
+    //   }
+    //   std::cout << ")\n";
+    // }
+    // std::cout << ")\n\n)\n";
   }
 }

@@ -28,7 +28,7 @@ namespace L3 {
   }
 
   void mergeFunc(L3::Function * f) {
-    std::cout << "before merge size: " << f->instructions.size() << "\n";
+    // std::cout << "before merge size: " << f->instructions.size() << "\n";
     int n = f->instructions.size();
     int k = 0;
     while (k < n-1) {
@@ -39,6 +39,6 @@ namespace L3 {
         k++;
       }
     }
-    std::cout << "after merge size: " << f->instructions.size() << "\n";
+    // std::cout << "after merge size: " << f->instructions.size() << "\n";
   }
 }

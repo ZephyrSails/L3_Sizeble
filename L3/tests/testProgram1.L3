@@ -33,14 +33,17 @@ define :printArray (array){
   arrayLength <- load array
 
   ; Check if the array is an actual array
+
   tempArrayPointer <- array & 1
   br tempArrayPointer :isAnInt :isAnArray
+
   :isAnInt
   return 0
   :isAnArray
 
   ; Header of the loop
   :check
+
   continueToExecute <- index < arrayLength
   br continueToExecute :true :false
 
@@ -99,5 +102,5 @@ define :printData (array, indexToPrintEncoded){
   call :printArray(arrayElement)
 
   :exitFunction
-  return 
+  return
 }
