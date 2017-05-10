@@ -12,12 +12,9 @@ namespace L2 {
   }
 
   void check_spill_match(L2::Instruction * rw, L2::Item * i, std::string * spill_target, int * count, int locals) {
-    // std::cout << "rw->items.size(): " << rw->items.size() << "\n";
     if (rw->items.size() > 0) {
       return;
     }
-    // std::cout << "i->name: " << i->name << " *spill_target: " << *spill_target;
-    // std::cout << "\n";
     if (i->type == L2::ITEM::VAR && (i->name == *spill_target || i->name == L2::get_spill_str(count, spill_target))) {
 
       std::string spill_str = L2::get_spill_str(count, spill_target);
@@ -26,16 +23,13 @@ namespace L2 {
       L2::Item * dummy_var = new L2::Item();
       dummy_var->type = L2::ITEM::VAR;
       dummy_var->name = spill_str;
-
-      // dummy_item->value =
+      
       L2::Item * dummy_mem = new L2::Item();
       dummy_mem->type = L2::ITEM::REGISTER;
       dummy_mem->name = "rsp";
       dummy_mem->value = (locals-1) * 8;
 
       rw->op = "<-";
-
-      // std::cout << "rw->items0: " << rw->items.size() << "\n";
 
       switch (rw->type) {
         case L2::INS::W_START:    // read
