@@ -52,7 +52,6 @@
 		:true
 		(encodedIndex <- index)
 		(encodedIndex <<= 1)
-		(encodedIndex <- encodedIndex)
 		(encodedIndex += 1)
 		
 		(rdi <- array)
@@ -60,7 +59,6 @@
 		((mem rsp -8) <- :ret_printData_1622650073)
 		(call :printData 2)
 		:ret_printData_1622650073
-		(index <- index)
 		(index += 1)
 		(goto :check)
 		:false
@@ -77,7 +75,6 @@
 		(arrayLength <- (mem array 0))
 		(arrayLengthEncoded <- arrayLength)
 		(arrayLengthEncoded <<= 1)
-		(arrayLengthEncoded <- arrayLengthEncoded)
 		(arrayLengthEncoded += 1)
 		
 		(cjump indexToPrintEncoded < arrayLengthEncoded :correct :wrong)
@@ -89,13 +86,10 @@
 		:correct
 		(offset <- indexToPrintEncoded)
 		(offset >>= 1)
-		(offset <- offset)
 		(offset *= 8)
-		(offset <- offset)
 		(offset += 8)
 		(offsetEncoded <- offset)
 		(offsetEncoded <<= 1)
-		(offsetEncoded <- offsetEncoded)
 		(offsetEncoded += 1)
 		
 		(rdi <- offsetEncoded)

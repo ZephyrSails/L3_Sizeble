@@ -64,8 +64,14 @@ namespace L3 {
   std::string Var::toString() {
     std::string res;
     if (this->instances.size() == 1 && typeid(*this->instances[0]) == typeid(L3::Op)) {
-      res += "\n\t\t(" + this->name + " <- " + this->instances[0]->instances[0]->name + ")";
-      res += "\n\t\t(" + this->name + " " + this->instances[0]->name + "= " + this->instances[0]->instances[1]->name + ")";
+      if (this->name == this->instances[0]->instances[0]->name) {
+        res += "\n\t\t(" + this->name + " " + this->instances[0]->name + "= " + this->instances[0]->instances[1]->name + ")";
+      } else if (this->name == this->instances[0]->instances[1]->name) {
+        res += "\n\t\t(" + this->name + " " + this->instances[0]->name + "= " + this->instances[0]->instances[0]->name + ")";
+      } else {
+        res += "\n\t\t(" + this->name + " <- " + this->instances[0]->instances[0]->name + ")";
+        res += "\n\t\t(" + this->name + " " + this->instances[0]->name + "= " + this->instances[0]->instances[1]->name + ")";
+      }
       return res;
     }
     return "";
