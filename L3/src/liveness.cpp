@@ -46,78 +46,7 @@ namespace L3 {
     }
     return result;
   }
-//
-//   void gen_gen_kill(std::set<std::string> * GEN, std::set<std::string> * KILL, L3::Instruction * i) {
-//     switch (i->type) {
-//       case L3::INS::RETURN:
-//               GEN->insert(callee_save_regs.begin(), callee_save_regs.end());
-//               GEN->insert("rax");
-//               break;
-//       // case L3::INS::LABEL_INS:
-//       //         break;
-//       case L3::INS::MEM_START:
-//               insert_item_to_set(KILL, i->items.at(0));
-//               if (i->op != "<-") {
-//                 insert_item_to_set(GEN, i->items.at(0));
-//               }
-//               insert_item_to_set(GEN, i->items.at(1));
-//               break;
-//       case L3::INS::W_START:
-//               insert_item_to_set(KILL, i->items.at(0));
-//               if (i->op != "<-") {
-//                 insert_item_to_set(GEN, i->items.at(0));
-//               }
-//               insert_item_to_set(GEN, i->items.at(1));
-//               break;
-//       case L3::INS::CALL:
-//               // std::cout << "union_set1\n";
-//               union_set(GEN, &args_regs, i->items.at(0)->value);
-//               // std::cout << "insert_item_to_set\n";
-//               insert_item_to_set(GEN, i->items.at(0));
-//               // std::cout << "union_set2\n";
-//               union_set(KILL, &caller_save_regs);
-//               KILL->insert("rax");
-//               break;
-//       // case L3::INS::GOTO:
-//       //         break;
-//       case L3::INS::INC_DEC:
-//               insert_item_to_set(KILL, i->items.at(0));
-//               insert_item_to_set(GEN, i->items.at(0));
-//               break;
-//       case L3::INS::CISC:
-//               insert_item_to_set(KILL, i->items.at(0));
-//               insert_item_to_set(GEN, i->items.at(1));
-//               insert_item_to_set(GEN, i->items.at(2));
-//               break;
-//       case L3::INS::CMP:
-//               insert_item_to_set(KILL, i->items.at(0));
-//               insert_item_to_set(GEN, i->items.at(1));
-//               insert_item_to_set(GEN, i->items.at(2));
-//               break;
-//       case L3::INS::CJUMP:
-//               insert_item_to_set(GEN, i->items.at(0));
-//               insert_item_to_set(GEN, i->items.at(1));
-//               break;
-//       case L3::INS::STACK:
-//               insert_item_to_set(KILL, i->items.at(0));
-//               // KILL->insert("rsp");
-//               break;
-//       default:
-//               break;
-//     }
-//
-  //   // std::cout << "\nGEN: ";
-  //   // for (auto reg : *GEN)
-  //   // {
-  //   //     std::cout << reg << " ";
-  //   // }
-  //   // std::cout << " ///// KILL: ";
-  //   // for (auto reg : *KILL)
-  //   // {
-  //   //     std::cout << reg << " ";
-  //   // }
-  // }
-//
+
   void liveness(L3::Function *func) {
     std::map<std::string, int> labelNextIndexMap = build_label_map(func->instructions);
 
@@ -187,22 +116,22 @@ namespace L3 {
     ///////////////////////
     // print in & out
     ///////////////////////
-    // std::cout << "(\n(in\n";
-    // for (int k = 0; k < n; k++) {
-    //   std::cout << "(";
-    //   for (auto var : func->instructions[k]->IN) {
-    //       std::cout << var << " ";
-    //   }
-    //   std::cout << ")\n";
-    // }
-    // std::cout << ")\n\n(out\n";
-    // for (int k = 0; k < n; k++) {
-    //   std::cout << "(";
-    //   for (auto var : func->instructions[k]->OUT) {
-    //       std::cout << var << " ";
-    //   }
-    //   std::cout << ")\n";
-    // }
-    // std::cout << ")\n\n)\n";
+    std::cout << "(\n(in\n";
+    for (int k = 0; k < n; k++) {
+      std::cout << "(";
+      for (auto var : func->instructions[k]->IN) {
+          std::cout << var << " ";
+      }
+      std::cout << ")\n";
+    }
+    std::cout << ")\n\n(out\n";
+    for (int k = 0; k < n; k++) {
+      std::cout << "(";
+      for (auto var : func->instructions[k]->OUT) {
+          std::cout << var << " ";
+      }
+      std::cout << ")\n";
+    }
+    std::cout << ")\n\n)\n";
   }
 }

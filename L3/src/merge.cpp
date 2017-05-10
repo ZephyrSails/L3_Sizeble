@@ -1,19 +1,23 @@
 // By Zhiping
 
 #include <merge.h>
+#include <liveness.h>
 
 namespace L3 {
+  // void union_set(std::set<std::string> & s, std::set<std::string> & t) {
+  //   s.insert(t.begin(), t.end());
+  // }
 
-  bool canMerge(L3::Instance * ins, L3::Instance * prev) {
+  bool canMerge(L3::Instance * ins, L3::Instance * prev, std::set<std::string> & OUT) {
     return (prev->type == L3::INS::VAR && ins->type == L3::INS::VAR
             && typeid(*ins) == typeid(L3::Var)
             && ins->name == prev->name
-            && ins->OUT.count(prev->name) == 0);
+            && OUT.count(prev->name) == 0);
   }
 
-  bool merge(L3::Instance * ins, L3::Instance * prev) {
+  bool merge(L3::Instance * ins, L3::Instance * prev, std::set<std::string> & OUT) {
     if (ins->instances.size() == 0) { // leaf?
-      if (canMerge(ins, prev)) { // ins == prev and prev.
+      if (canMerge(ins, prev, OUT)) { // ins == prev and prev.
         if (typeid(*prev->instances[0]) == typeid(L3::Var)) {
           *ins = *prev->instances[0];
         } else {
@@ -25,7 +29,7 @@ namespace L3 {
     } else {
       bool mergeFlag = false;
       for (auto sub : ins->instances) {
-        mergeFlag |= merge(sub, prev);
+        mergeFlag |= merge(sub, prev, OUT);
       }
       return mergeFlag;
     }
@@ -36,7 +40,9 @@ namespace L3 {
     int n = f->instructions.size();
     int k = 0;
     while (k < n-1) {
-      if (merge(f->instructions[k+1], f->instructions[k])) {
+      if (merge(f->instructions[k+1], f->instructions[k], f->instructions[k+1]->OUT)) {
+        union_set(f->instructions[k+1]->OUT, f->instructions[k]->OUT);
+
         f->instructions.erase(f->instructions.begin() + k);
         int n = f->instructions.size();
       } else {
