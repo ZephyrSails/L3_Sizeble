@@ -55,7 +55,7 @@ namespace L3 {
 
       case TNAME::ASSIGN_CALL:
                 res += ins->instances[0]->toString();
-                res += "\n\t\t(" + ins->name + " <- rdx)";
+                res += "\n\t\t(" + ins->name + " <- rax)";
                 return res;
 
       case TNAME::CALL:
