@@ -50,15 +50,16 @@ int main(int argc, char **argv) {
     }
 
     L3::liveness(f);
-    // L3::printFunc(*f);
+    L3::printFunc(*f);
     L3::mergeFunc(f);
-    // L3::printFunc(*f);
+    L3::printFunc(*f);
 
     for (auto i : f->instructions) {
 
       std::vector< std::tuple< int, L3::Instance * > > stack;
 
       t->Match(i, stack);
+      
       for (int k = stack.size()-1; k >= 0; k--) {
         outputFile << t->Translate(std::get<0>(stack.at(k)), std::get<1>(stack.at(k)));
       }

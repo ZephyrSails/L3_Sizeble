@@ -93,18 +93,23 @@ namespace L3 {
 
   bool L3::Tile::MatchTile(L3::Instance * ins, L3::Instance * til, std::vector< L3::Instance * > & leaf) {
     if (!(ins->equal(til)) || (til->instances.size() > 0 && ins->instances.size() != til->instances.size())) {
-      // std::cout << "failed\n";
+      // if tail reached leaf, return.
       return false;
     }
-    // std::cout << "successed\n";
+
+    if (til->instances.size() == 0) { // leaf matched
+      //
+      for (auto l : ins->instances) {
+        leaf.push_back(l);
+      }
+
+      return true;
+    }
 
     for (int k = 0; k < til->instances.size(); k++) {
-      // std::cout << "(til->name == til->instances[k]->name) " << (til->name == til->instances[k]->name) << "\n";
-      // std::cout << "(til->name == til->instances[k]->name && ins->name != ins->instances[k]->name)" << ((til->name == til->instances[k]->name) && (ins->name != ins->instances[k]->name)) << "\n";
+      // if tail is deeper, keep trying
       if (((til->name == til->instances[k]->name) && (ins->name != ins->instances[k]->name)) ||
             !L3::Tile::MatchTile(ins->instances[k], til->instances[k], leaf)) {
-        // std::cout << "ins->instances[k]->name " << ins->instances[k]->name << "\n";
-        // std::cout << "til->instances[k]->name " << til->instances[k]->name << "\n";
         return false;
       }
     }
@@ -118,7 +123,9 @@ namespace L3 {
       std::vector< L3::Instance * > leaf;
       if (this->MatchTile(ins, this->tiles[k], leaf)) {
         L3::debug("k = " + std::to_string(k) + " Matched " + TMAP[k]);
+
         stack.push_back(std::make_tuple(k, ins));
+
         for (auto l : leaf) {
           this->Match(l, stack);
         }

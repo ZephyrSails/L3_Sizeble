@@ -1,84 +1,13 @@
 (:main
 	(:main
 		0 0
+		(v1 <- 1)
+		(tempV <- v1)
+		(tempV += 2)
 		
-		(rdi <- 5)
-		(rsi <- 5)
-		(call allocate 2)
-		(array1 <- rax)
-		(el1Address <- array1)
-		(el1Address += 8)
-		((mem el1Address 0) <- 85)
-		
-		(rdi <- array1)
+		(rdi <- tempV)
 		(call print 1)
-		
-		(rdi <- array1)
-		((mem rsp -8) <- :ret_printArray)
-		(call :printArray 1)
-		:ret_printArray
-		
-		(rdi <- 5)
-		(rsi <- 5)
-		(call allocate 2)
-		(array2 <- rax)
-		((mem el1Address 0) <- array2)
-		
-		(rdi <- array1)
-		(call print 1)
-		
-		(rdi <- array1)
-		((mem rsp -8) <- :ret_printArray)
-		(call :printArray 1)
-		:ret_printArray
-		(return)
-	)
-	(:printArray
-		1 0
-		(array <- rdi)
-		(index <- 0)
-		(arrayLength <- (mem array 0))
-		(tempArrayPointer <- array)
-		(tempArrayPointer &= 1)
-		:isAnInt
 		(rax <- 0)
 		(return)
-		:isAnArray
-		:check
-		(continueToExecute <- index)
-		(continueToExecute <= arrayLength)
-		:true
-		(encodedIndex <- index)
-		(encodedIndex <<= 1)
-		(encodedIndex <- encodedIndex)
-		(encodedIndex += 1)
-		
-		(rdi <- array)
-		(rsi <- encodedIndex)
-		((mem rsp -8) <- :ret_printData)
-		(call :printData 2)
-		:ret_printData
-		(index <- index)
-		(index += 1)
-		(goto :check)
-		:false
-		(rax <- 1)
-		(return)
-	)
-	(:printData
-		2 0
-		(array <- rdi)
-		(indexToPrintEncoded <- rsi)
-		
-		(rdi <- indexToPrintEncoded)
-		(call print 1)
-		(arrayLength <- (mem array 0))
-		(arrayLengthEncoded <- arrayLength)
-		(arrayLengthEncoded <<= 1)
-		(arrayLengthEncoded <- arrayLengthEncoded)
-		(arrayLengthEncoded += 1)
-		(isArrayBigEnough <- indexToPrintEncoded)
-		(isArrayBigEnough <= arrayLengthEncoded)
-		:wrong
 	)
 )

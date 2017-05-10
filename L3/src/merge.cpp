@@ -12,9 +12,13 @@ namespace L3 {
   }
 
   bool merge(L3::Instance * ins, L3::Instance * prev) {
-    if (ins->instances.size() == 0) {
+    if (ins->instances.size() == 0) { // leaf?
       if (canMerge(ins, prev)) { // ins == prev and prev.
-        *ins = *prev->instances[0];
+        if (typeid(*prev->instances[0]) == typeid(L3::Var)) {
+          *ins = *prev->instances[0];
+        } else {
+          *ins = *prev;
+        }
         return true;
       }
       return false;
@@ -28,7 +32,7 @@ namespace L3 {
   }
 
   void mergeFunc(L3::Function * f) {
-    // std::cout << "before merge size: " << f->instructions.size() << "\n";
+    std::cout << "\nbefore merge size: " << f->instructions.size() << "\n";
     int n = f->instructions.size();
     int k = 0;
     while (k < n-1) {
@@ -39,6 +43,6 @@ namespace L3 {
         k++;
       }
     }
-    // std::cout << "after merge size: " << f->instructions.size() << "\n";
+    std::cout << "after merge size: " << f->instructions.size() << "\n\n";
   }
 }
