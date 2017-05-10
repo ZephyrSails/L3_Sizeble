@@ -99,9 +99,15 @@ namespace L3 {
 
     if (til->instances.size() == 0) { // leaf matched
       //
-      for (auto l : ins->instances) {
-        leaf.push_back(l);
+      if (typeid(*ins) == typeid(L3::Var) && ins->instances.size() > 0) {
+        leaf.push_back(ins);
+      } else {
+        for (auto l : ins->instances) {
+          if (l)
+          leaf.push_back(l);
+        }
       }
+
 
       return true;
     }

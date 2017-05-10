@@ -13,13 +13,20 @@ namespace L3 {
     }
   }
 
-  bool Instance::equal(L3::Instance * ins) {
+  bool Instance::equal(L3::Instance * tile) {
     // std::cout << "typeid: " << (typeid(this).name()) << " " << typeid(ins).name() << "\n";
     // std::cout << "equal: " << (typeid(this) == typeid(ins)) << "\n";
     // std::cout << "type: " << typeid(*this).name() << " " << typeid(*ins).name() << "\n";
     // std::cout << "equal: " << (this->type == ins->type) << "\n";
     // std::cout << "equal: " << ((typeid(this) == typeid(ins)) && (this->type == ins->type)) << "\n";
-    return (typeid(*this) == typeid(*ins));
+    if (typeid(*this) == typeid(*tile)) {
+      if (tile->type == L3::INS::LABEL) {
+        return (tile->type == this->type);
+      }
+      return true;
+    }
+    return false;
+    // return (typeid(*this) == typeid(*tile) );
     // return (typeid(this) == typeid(ins)) && (this->type == ins->type);
   }
 
