@@ -41,7 +41,7 @@
 		
 		(tempArrayPointer <- array)
 		(tempArrayPointer &= 1)
-		(cjump tempArrayPointer > 0 :isAnInt :isAnArray)
+		(cjump 0 < tempArrayPointer :isAnInt :isAnArray)
 		:isAnInt
 		(rax <- 0)
 		(return)

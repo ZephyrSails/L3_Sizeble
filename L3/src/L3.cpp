@@ -110,7 +110,7 @@ namespace L3 {
         }
       } else {
         res += this->instances[0]->toString();
-        res += "\n\t\t(cjump " + this->instances[0]->name + " > 0 " + this->instances[1]->name + " " + this->instances[2]->name + ")";
+        res += "\n\t\t(cjump 0 < " + this->instances[0]->name + " " + this->instances[1]->name + " " + this->instances[2]->name + ")";
       }
 
     } else {
