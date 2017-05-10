@@ -169,8 +169,8 @@ namespace L3 {
     std::string fName = this->name;
     if (fName[0] == ':') {
       fName.erase(0, 1);
-      fName += "_" + std::to_string(L3::CALLCOUNT);
-      L3::CALLCOUNT++;
+      fName += "_" + std::to_string(rand());
+      // CALLCOUNT++;
     }
     if (!isLibFunc) {
       res += "\n\t\t((mem rsp -8) <- :ret_" + fName + ")";

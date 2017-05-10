@@ -21,17 +21,11 @@
 #include <tuple>
 #include <unistd.h>
 #include <typeinfo>
+#include <cstdlib>
 
 namespace L3 {
 
   void debug(std::string str);
-  // const std::vector< std::string > sys
-
-  // class Item {
-  //   std::string name;
-  //   int64_t value;
-  // };
-  int CALLCOUNT = 0;
 
   const std::vector< std::string > ARGS = { "rdi", "rsi", "rdx", "rcx", "r8", "r9" };
   // const std::vector< std::string > ARGS = { "rdi", "rsi", "rdx", "rcx", "r8", "r9" };
