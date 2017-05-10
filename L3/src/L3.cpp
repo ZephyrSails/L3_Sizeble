@@ -132,7 +132,9 @@ namespace L3 {
   }
 
   std::string Store::toString() {
-    return "";
+    std::string res;
+    res += "\n\t\t((mem " + this->instances[0]->name + " 0) <- " + this->instances[1]->name + ")";
+    return res;
   }
 
   Op::Op(std::vector<std::string> & v) {

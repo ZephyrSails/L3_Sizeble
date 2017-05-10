@@ -1,119 +1,46 @@
 (:main
 	(:main
 		0 0
-
-		(rdi <- 5)
-		(rsi <- 5)
-		(call allocate 2)
-		(array1 <- rax)
-		(el1Address <- array1)
-		(el1Address += 8)
-		((mem el1Address 0) <- 85)
-
-		(rdi <- array1)
+		(v1 <- 1)
+		
+		(rdi <- v1)
+		(rsi <- 2)
+		(rdx <- 3)
+		((mem rsp -8) <- :ret_myF_16807)
+		(call :myF 3)
+		:ret_myF_16807
+		(v4 <- rax)
+		(v4Encoded <- v4)
+		(v4Encoded <<= 1)
+		(v4Encoded += 1)
+		
+		(rdi <- v4Encoded)
 		(call print 1)
-
-		(rdi <- array1)
-		((mem rsp -8) <- :ret_printArray_16807)
-		(call :printArray 1)
-		:ret_printArray_16807
-
-		(rdi <- 5)
-		(rsi <- 5)
+		
+		(rdi <- v4Encoded)
+		(rsi <- 1)
 		(call allocate 2)
-		(array2 <- rax)
-		((mem el1Address 0) <- array2)
-
-		(rdi <- array1)
+		(myAr <- rax)
+		((mem myAr 8) <- 7)
+		(el1 <- (mem el1Address 0))
+		
+		(rdi <- el1)
 		(call print 1)
-
-		(rdi <- array1)
-		((mem rsp -8) <- :ret_printArray_282475249)
-		(call :printArray 1)
-		:ret_printArray_282475249
-		(return)
-	)
-	
-	(:printArray
-		1 0
-		(array <- rdi)
-		(index <- 0)
-		(arrayLength <- (mem array 0))
-
-		(tempArrayPointer <- array)
-		(tempArrayPointer &= 1)
-		(cjump 0 < tempArrayPointer :isAnInt :isAnArray)
-		:isAnInt
+		
+		(rdi <- myAr)
+		(call print 1)
 		(rax <- 0)
 		(return)
-		:isAnArray
-		:check
-
-		(cjump index < arrayLength :true :false)
-		:true
-		(encodedIndex <- index)
-		(encodedIndex <<= 1)
-		(encodedIndex += 1)
-
-		(rdi <- array)
-		(rsi <- encodedIndex)
-		((mem rsp -8) <- :ret_printData_1622650073)
-		(call :printData 2)
-		:ret_printData_1622650073
-		(index += 1)
-		(goto :check)
-		:false
-		(rax <- 1)
-		(return)
 	)
-	(:printData
-		2 0
-		(array <- rdi)
-		(indexToPrintEncoded <- rsi)
-
-		(rdi <- indexToPrintEncoded)
-		(call print 1)
-		(arrayLength <- (mem array 0))
-		(arrayLengthEncoded <- arrayLength)
-		(arrayLengthEncoded <<= 1)
-		(arrayLengthEncoded += 1)
-
-		(cjump indexToPrintEncoded < arrayLengthEncoded :correct :wrong)
-		:wrong
-
-		(rdi <- array)
-		(rsi <- indexToPrintEncoded)
-		(call array-error 2)
-		:correct
-		(offset <- indexToPrintEncoded)
-		(offset >>= 1)
-		(offset *= 8)
-		(offset += 8)
-		(offsetEncoded <- offset)
-		(offsetEncoded <<= 1)
-		(offsetEncoded += 1)
-
-		(rdi <- offsetEncoded)
-		(call print 1)
-		(arrayElementAddress <- offset)
-		(arrayElementAddress += array)
-		(arrayElement <- (mem arrayElementAddress 0))
-
-		(isArrayElementAnInt <- arrayElement)
-		(isArrayElementAnInt &= 1)
-		(cjump 0 < isArrayElementAnInt :isAnInt2 :isAnArray2)
-		:isAnInt2
-
-		(rdi <- arrayElement)
-		(call print 1)
-		(goto :exitFunction)
-		:isAnArray2
-
-		(rdi <- arrayElement)
-		((mem rsp -8) <- :ret_printArray_984943658)
-		(call :printArray 1)
-		:ret_printArray_984943658
-		:exitFunction
+	(:myF
+		3 0
+		(p1 <- rdi)
+		(p2 <- rsi)
+		(p3 <- rdx)
+		(tempV <- p1)
+		(tempV += p2)
+		(tempV += p3)
+		(rax <- tempV)
 		(return)
 	)
 )

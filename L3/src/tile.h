@@ -7,10 +7,11 @@
 namespace L3 {
   class Tile {
     enum TNAME {
-      RETURN, ASSIGN, ASSIGN_CALL ,CALL, STORE ,C_BR ,BR ,LOAD ,ASSIGN_OP, LABEL
+      ADD_STORE, RETURN, ASSIGN, ASSIGN_CALL ,CALL, STORE ,C_BR ,BR ,LOAD ,ASSIGN_OP, LABEL
     };
 
     std::map< int, std::string > TMAP = {
+                { TNAME::ADD_STORE, "ADD_STORE" },
                 { TNAME::RETURN, "RETURN" },
                 { TNAME::ASSIGN, "ASSIGN" },
                 { TNAME::ASSIGN_CALL, "ASSIGN_CALL" },

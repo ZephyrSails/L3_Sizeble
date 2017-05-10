@@ -32,7 +32,7 @@ namespace L3 {
     v = {"V1"};
     this->tiles[TNAME::BR] = new L3::Br(v);
     // store var <- s
-    v = {"V1", "V2"};
+    v = {"D1", "V2"};
     this->tiles[TNAME::STORE] = new L3::Store(v);
     // var <- load var
     v = {"V1", "load", "V2"};
@@ -42,6 +42,12 @@ namespace L3 {
     v = {"V1", "V2", "OP", "V3"};
     this->tiles[TNAME::ASSIGN_OP] = new L3::Var("V1");
     this->tiles[TNAME::ASSIGN_OP]->instances.push_back(new L3::Op(v));
+    // D1 <- V1 + N; store D1 <- s
+    v = {"D1", "S"};
+    this->tiles[TNAME::ADD_STORE] = new L3::Store(v);
+    v = {"D1", "V1", "+", "N"};
+    this->tiles[TNAME::ADD_STORE]->instances[0]->instances.push_back(new L3::Op(v));
+
   }
 
   std::string L3::Tile::Translate(int tIndex, L3::Instance * ins) {
@@ -73,8 +79,7 @@ namespace L3 {
                 return ins->toString();
 
       case TNAME::STORE:
-                res += "\n\t\t((mem " + ins->instances[0]->name + " 0) <- " + ins->instances[1]->name + ")";
-                return res;
+                return ins->toString();
 
       case TNAME::LOAD:
                 res += "\n\t\t(" + ins->name + " <- (mem " + ins->instances[0]->instances[0]->name + " 0))";
@@ -82,13 +87,12 @@ namespace L3 {
 
       case TNAME::ASSIGN_OP:
                 return ins->toString();
-                // if (false) {
-                //
-                // } else {
-                //   res += "\n\t\t(" + ins->name + " <- " + ins->instances[0]->instances[0]->name + ")";
-                //   res += "\n\t\t(" + ins->name + " " + ins->instances[0]->name + "= " + ins->instances[0]->instances[1]->name + ")";
-                // }
-                // return res;
+
+      case TNAME::ADD_STORE:
+                // L3::Instance address = ins->instances[0]->instances[0];
+                res += "\n\t\t((mem " + ins->instances[0]->instances[0]->instances[0]->name + " " + ins->instances[0]->instances[0]->instances[1]->name + ") <- " + ins->instances[1]->name + ")";
+                return res;
+
       default:
                 return "";
     }
