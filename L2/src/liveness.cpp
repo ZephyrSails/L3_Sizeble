@@ -56,10 +56,10 @@ namespace L2 {
       // case L2::INS::LABEL_INS:
       //         break;
       case L2::INS::MEM_START:
-              insert_item_to_set(KILL, i->items.at(0));
-              if (i->op != "<-") {
-                insert_item_to_set(GEN, i->items.at(0));
-              }
+              // insert_item_to_set(KILL, i->items.at(0));
+              // if (i->op != "<-") {
+              insert_item_to_set(GEN, i->items.at(0));
+              // }
               insert_item_to_set(GEN, i->items.at(1));
               break;
       case L2::INS::W_START:
@@ -107,15 +107,16 @@ namespace L2 {
     }
 
     // std::cout << "\nGEN: ";
-    // for (auto reg : *GEN)
-    // {
-    //     std::cout << reg << " ";
-    // }
-    // std::cout << " ///// KILL: ";
-    // for (auto reg : *KILL)
-    // {
-    //     std::cout << reg << " ";
-    // }
+    for (auto reg : *GEN)
+    {
+        std::cout << reg << " ";
+    }
+    std::cout << " ///// KILL: ";
+    for (auto reg : *KILL)
+    {
+        std::cout << reg << " ";
+    }
+    std::cout << "\n";
   }
 
   void liveness_analysis(L2::Function *func, std::set <std::string> *GEN, std::set <std::string> *KILL, std::set <std::string> *IN, std::set <std::string> *OUT) {
@@ -180,22 +181,22 @@ namespace L2 {
     ///////////////////////
     // print in & out
     ///////////////////////
-    // std::cout << "(\n(in\n";
-    // for (int k = 0; k < n; k++) {
-    //   std::cout << "(";
-    //   for (auto reg : IN[k]) {
-    //       std::cout << reg << " ";
-    //   }
-    //   std::cout << ")\n";
-    // }
-    // std::cout << ")\n\n(out\n";
-    // for (int k = 0; k < n; k++) {
-    //   std::cout << "(";
-    //   for (auto reg : OUT[k]) {
-    //       std::cout << reg << " ";
-    //   }
-    //   std::cout << ")\n";
-    // }
-    // std::cout << ")\n\n)";
+    std::cout << "(\n(in\n";
+    for (int k = 0; k < n; k++) {
+      std::cout << "(";
+      for (auto reg : IN[k]) {
+          std::cout << reg << " ";
+      }
+      std::cout << ")\n";
+    }
+    std::cout << ")\n\n(out\n";
+    for (int k = 0; k < n; k++) {
+      std::cout << "(";
+      for (auto reg : OUT[k]) {
+          std::cout << reg << " ";
+      }
+      std::cout << ")\n";
+    }
+    std::cout << ")\n\n)";
   }
 }

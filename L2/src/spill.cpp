@@ -86,27 +86,19 @@ namespace L2 {
                 check_spill_match(read, i->items.at(1), spill_target, &count, f->locals);
                 break;
         case L2::INS::W_START:
-                // std::cout << "hello W_START\n";
                 check_spill_match(write, i->items.at(0), spill_target, &count, f->locals);
                 if (i->op != "<-") {
-                  // i->items.at(0) = spill_str;
-                  // i->name = spill_str;
-                  // std::cout << "hello muttherererere kkdferere!\n";
                   check_spill_match(read, i->items.at(0), spill_target, &count, f->locals);
                 }
                 check_spill_match(read, i->items.at(1), spill_target, &count, f->locals);
                 break;
         case L2::INS::CALL:
-                // union_set(GEN, &args_regs, i->items.at(0)->value);
                 check_spill_match(read, i->items.at(0), spill_target, &count, f->locals);
-                // union_set(KILL, &caller_save_regs);
-                // KILL->insert("rax");
                 break;
         // case L2::INS::GOTO:
         //         break;
         case L2::INS::INC_DEC:
                 check_spill_match(read, i->items.at(0), spill_target, &count, f->locals);
-                // i->items.at(0) = spill_str;
                 check_spill_match(write, i->items.at(0), spill_target, &count, f->locals);
                 break;
         case L2::INS::CISC:
@@ -125,16 +117,11 @@ namespace L2 {
                 break;
         case L2::INS::STACK:
                 check_spill_match(write, i->items.at(0), spill_target, &count, f->locals);
-                // KILL->insert("rsp");
                 break;
         default:
                 break;
       }
 
-      // std::cout << "read? " << read->items.size() << "\n";
-      // std::cout << "tinkering 2 - " << k << std::endl;
-      // std::cout << read->items.size() << "read?\n";
-      // std::cout << write->items.size() << "write?\n";
       if (read->items.size() > 0 || write->items.size() > 0) {
 
 
