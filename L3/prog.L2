@@ -82,5 +82,43 @@
 		
 		(cjump indexToPrintEncoded < arrayLengthEncoded :correct :wrong)
 		:wrong
+		
+		(rdi <- array)
+		(rsi <- indexToPrintEncoded)
+		(call array-error 2)
+		:correct
+		(offset <- indexToPrintEncoded)
+		(offset >>= 1)
+		(offset <- offset)
+		(offset *= 8)
+		(offset <- offset)
+		(offset += 8)
+		(offsetEncoded <- offset)
+		(offsetEncoded <<= 1)
+		(offsetEncoded <- offsetEncoded)
+		(offsetEncoded += 1)
+		
+		(rdi <- offsetEncoded)
+		(call print 1)
+		(arrayElementAddress <- offset)
+		(arrayElementAddress += array)
+		(arrayElement <- (mem arrayElementAddress 0))
+		
+		(isArrayElementAnInt <- arrayElement)
+		(isArrayElementAnInt &= 1)
+		(cjump 0 < isArrayElementAnInt :isAnInt2 :isAnArray2)
+		:isAnInt2
+		
+		(rdi <- arrayElement)
+		(call print 1)
+		(goto :exitFunction)
+		:isAnArray2
+		
+		(rdi <- arrayElement)
+		((mem rsp -8) <- :ret_printArray_984943658)
+		(call :printArray 1)
+		:ret_printArray_984943658
+		:exitFunction
+		(return)
 	)
 )

@@ -109,8 +109,8 @@ namespace L3 {
 
   struct L3_callee:
     pegtl::sor<
-      L3_u,
-      runtime_system_func
+      runtime_system_func,
+      L3_u
     > {};
 
   struct var:
