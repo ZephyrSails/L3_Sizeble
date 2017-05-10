@@ -347,12 +347,15 @@ namespace L3 {
 
       if (v[1] == "call") {
         std::vector<std::string> cv(v.begin()+1, v.end());
-        for (int k = 2; k < cv.size(); k++) {
+        if (!L3::LIBS.count(v[2])) {
+          insert(newIns->GEN, v[2]);
+        }
+        for (int k = 3; k < v.size(); k++) {
           insert(newIns->GEN, v[k]);
         }
         newIns->instances.push_back(new L3::Call(cv));
       } else if (v[1] == "load") {
-        insert(newIns->GEN, v[1]);
+        insert(newIns->GEN, v[2]);
         newIns->instances.push_back(new L3::Load(v));
       } else if (v.size() == 4) { // cmp || op
         insert(newIns->GEN, v[1]);
@@ -429,7 +432,16 @@ namespace L3 {
     static void apply( const pegtl::input & in, L3::Program & p, std::vector<std::string> & v ) {
       L3::Function *currentF = p.functions.back();
 
-      currentF->instructions.push_back(new L3::Call(v));
+      L3::Instance *newIns = new L3::Call(v);
+
+
+      if (!L3::LIBS.count(v[1])) {
+        insert(newIns->GEN, v[1]);
+      }
+      for (int k = 2; k < v.size(); k++) {
+        insert(newIns->GEN, v[k]);
+      }
+      currentF->instructions.push_back(newIns);
 
       v.clear();
     }
