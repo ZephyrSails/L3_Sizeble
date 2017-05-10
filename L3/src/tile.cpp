@@ -23,6 +23,8 @@ namespace L3 {
     v = {"V1", ":L1", ":L2"};
     // TODO
     this->tiles[TNAME::C_BR] = new L3::Br(v);
+    v = {"V1", "V2", "OP", "V3"};
+    this->tiles[TNAME::C_BR]->instances[0]->instances.push_back(new L3::Op(v));
 
     // label
     this->tiles[TNAME::LABEL] = new L3::Var(":L1");
@@ -62,7 +64,7 @@ namespace L3 {
                 return ins->toString();
 
       case TNAME::C_BR:
-                return "";
+                return ins->toString();
 
       case TNAME::LABEL:
                 return "\n\t\t" + ins->name;
@@ -79,13 +81,14 @@ namespace L3 {
                 return res;
 
       case TNAME::ASSIGN_OP:
-                if (false) {
-
-                } else {
-                  res += "\n\t\t(" + ins->name + " <- " + ins->instances[0]->instances[0]->name + ")";
-                  res += "\n\t\t(" + ins->name + " " + ins->instances[0]->name + "= " + ins->instances[0]->instances[1]->name + ")";
-                }
-                return res;
+                return ins->toString();
+                // if (false) {
+                //
+                // } else {
+                //   res += "\n\t\t(" + ins->name + " <- " + ins->instances[0]->instances[0]->name + ")";
+                //   res += "\n\t\t(" + ins->name + " " + ins->instances[0]->name + "= " + ins->instances[0]->instances[1]->name + ")";
+                // }
+                // return res;
       default:
                 return "";
     }

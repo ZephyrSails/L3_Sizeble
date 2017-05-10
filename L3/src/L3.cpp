@@ -61,6 +61,12 @@ namespace L3 {
   }
 
   std::string Var::toString() {
+    std::string res;
+    if (this->instances.size() == 1 && typeid(*this->instances[0]) == typeid(L3::Op)) {
+      res += "\n\t\t(" + this->name + " <- " + this->instances[0]->instances[0]->name + ")";
+      res += "\n\t\t(" + this->name + " " + this->instances[0]->name + "= " + this->instances[0]->instances[1]->name + ")";
+      return res;
+    }
     return "";
     // if (this->type == L3::INS::LABEL) {
     //   std::string res = this->name;
@@ -90,8 +96,23 @@ namespace L3 {
   std::string Br::toString() {
     std::string res = "\n\t\t";
     if (this->instances.size() == 3) {
-      // TODO
-      res += "";
+      L3::Instance * cmp = this->instances[0]->instances[0];
+      if (cmp->name == ">=" || cmp->name == ">" || cmp->name == "=" || cmp->name == "<" || cmp->name == "<=") {
+        if (cmp->name == ">=" || cmp->name == ">") {
+          if (cmp->name == ">=") {
+            cmp->name = "<=";
+          } else {
+            cmp->name = "<";
+          }
+          res += "\n\t\t(cjump " + cmp->instances[1]->name + " " + cmp->name + " " + cmp->instances[0]->name + " " + this->instances[1]->name + " " + this->instances[2]->name + ")";
+        } else {
+          res += "\n\t\t(cjump " + cmp->instances[0]->name + " " + cmp->name + " " + cmp->instances[1]->name + " " + this->instances[1]->name + " " + this->instances[2]->name + ")";
+        }
+      } else {
+        res += this->instances[0]->toString();
+        res += "\n\t\t(cjump " + this->instances[0]->name + " > 0 " + this->instances[1]->name + " " + this->instances[2]->name + ")";
+      }
+
     } else {
       res += "(goto " + this->instances[0]->name + ")";
     }
