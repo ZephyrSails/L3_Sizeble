@@ -36,11 +36,18 @@ int main(int argc, char **argv) {
   L3::Program p = L3::L3_parse_file(argv[optind]);
 
   outputFile << "(:main\n";
-  
+
   for (auto f : p.functions) {
     outputFile << "\t(" << f->name << "\n";
     outputFile << "\t\t" << std::to_string(f->arguments.size()) << " 0";
 
+    for (int k = 0; k < f->arguments.size(); k++) {
+      if (k < 6) {
+        outputFile << "\n\t\t(" << f->arguments[k]->name << " <- " << L3::ARGS[k] << ")";
+      } else {
+        outputFile << "\n\t\t(" << f->arguments[k]->name << " <- (mem rsp " << std::to_string((k-5) * 8) << "))";
+      }
+    }
     // L3::liveness(f);
     // L3::printFunc(*f);
     // L3::mergeFunc(f);

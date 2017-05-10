@@ -37,6 +37,9 @@
 	)
 	(:myF
 		3 0
+		(p1 <- rdi)
+		(p2 <- rsi)
+		(p3 <- rdx)
 		(tempV <- p1)
 		(tempV += p2)
 		(tempV <- tempV)

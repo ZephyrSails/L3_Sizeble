@@ -114,8 +114,7 @@ namespace L3 {
   void L3::Tile::Match(L3::Instance * ins, std::vector< std::tuple< int, L3::Instance * > > & stack) {
 
     for (int k = 0; k < this->tiles.size(); k++) {
-      // std::cout << "k = " << k << "\n";
-      // std::cout << "k = " << k << " trying to Match " << TMAP[k] << "\n";
+
       std::vector< L3::Instance * > leaf;
       if (this->MatchTile(ins, this->tiles[k], leaf)) {
         L3::debug("k = " + std::to_string(k) + " Matched " + TMAP[k]);
